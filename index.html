@@ -141,7 +141,7 @@ body{
 #screen-quiz{height:100%;width:100%;position:relative;display:flex;flex-direction:column;}
 .quiz-top{
   background:linear-gradient(135deg,var(--brand-yellow) 0%, var(--brand-orange) 100%);
-  padding:18px 22px 40px;position:relative;flex-shrink:0;
+  padding:18px 22px 26px;position:relative;flex-shrink:0;
 }
 .quiz-top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
 .time-chip{
@@ -182,23 +182,9 @@ body{
 }
 @keyframes hintBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
 
-.scenario-icon-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:14px 0 6px;}
-/* [GANTI GAMBAR 2]: KOTAK ILUSTRASI MERAH DI SINI */
-.scenario-icon{
-  width:140px;height:140px;border-radius:28px;
-  background:rgba(255,255,255,.16);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  border:1.5px dashed rgba(255,255,255,.4);
-  animation:iconFloat 3s ease-in-out infinite;
-  overflow: hidden;
-}
-@keyframes iconFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-.scenario-icon svg{width:36px;height:36px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.55;}
-@keyframes iconPop{0%{transform:scale(.6);opacity:0;}60%{transform:scale(1.1);opacity:1;}100%{transform:scale(1);}}
-.scenario-icon.pop{animation:iconPop .4s cubic-bezier(.34,1.56,.64,1);}
-.scenario-heading{color:#fff;text-align:center;}
+.scenario-heading{color:#fff;text-align:left;padding-top:2px;}
 .scenario-heading .eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;opacity:.85;display:block;margin-bottom:2px;}
-.scenario-heading h2{margin:0;font-size:18px;font-weight:800;}
+.scenario-heading h2{margin:0;font-size:19px;font-weight:800;}
 
 .quiz-card{
   background:var(--paper);flex:1;border-top-left-radius:28px;border-top-right-radius:28px;
@@ -308,6 +294,25 @@ body{
 .recap-count{width:16px;font-size:11px;color:#8A8373;text-align:right;flex-shrink:0;}
 
 .debrief-card{margin:0 24px 18px;background:#1C1B1F;border-radius:18px;padding:18px;color:#fff;}
+
+/* ================= SLIDE 10: ILUSTRASI FULL KARAKTER ================= */
+#screen-illustration{height:100%;width:100%;position:relative;background:#FBF7EF;}
+.illustration-top{
+  padding:26px 24px 20px;text-align:center;
+  border-bottom-left-radius:32px;border-bottom-right-radius:32px;
+}
+.illustration-top .eyebrow{color:rgba(255,255,255,.85);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;display:block;}
+.illustration-top h1{color:#fff;font-size:26px;margin:0;font-weight:800;}
+.illustration-body{padding:22px 24px 28px;}
+/* [GANTI GAMBAR] Kotak di bawah ini nampung ilustrasi full karakter (slide 10).
+   Diisi otomatis dari field `fullImage` di characterData (lihat kode JS di bawah). */
+.illustration-frame{
+  width:100%;aspect-ratio:3/4;border-radius:22px;overflow:hidden;
+  background:#F3EDE0;border:2px dashed #D9CFBD;
+  display:flex;align-items:center;justify-content:center;
+  color:#8A8373;font-size:13px;font-weight:600;text-align:center;padding:20px;
+}
+.illustration-frame img{width:100%;height:100%;object-fit:cover;}
 .debrief-card .tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-yellow);display:block;margin-bottom:8px;}
 .debrief-card p{margin:0;font-size:13px;line-height:1.6;color:#E4E1DA;}
 
@@ -386,12 +391,9 @@ body{
         <div class="progress-dots" id="progress-dots"></div>
         <div class="progress-avatar" id="progress-avatar" style="left:0%">🧭</div>
       </div>
-      <div class="scenario-icon-wrap">
-        <div class="scenario-icon" id="scenario-icon"></div>
-        <div class="scenario-heading">
-          <span class="eyebrow editable-el" id="question-eyebrow">Situasi</span>
-          <h2 class="editable-el" id="question-title">Judul</h2>
-        </div>
+      <div class="scenario-heading">
+        <span class="eyebrow editable-el" id="question-eyebrow">Situasi</span>
+        <h2 class="editable-el" id="question-title">Judul</h2>
       </div>
     </div>
     <div class="quiz-card">
@@ -439,21 +441,42 @@ body{
           <p class="editable-el" id="debrief-text">Ringkasan performa shift kamu hari ini.</p>
         </div>
 
-        <p class="gallery-label">Semua Karakter CARING</p>
-        
-        <div id="gallery-wrap">
-          <div class="gallery-grid" id="gallery-grid"></div>
-        </div>
+        <button onclick="goToIllustration()" class="btn-primary" style="margin-bottom:12px;">Lihat Ilustrasi Karakter 🎨</button>
 
         <div class="result-actions">
           <button onclick="backToLastQuestion()" class="btn-secondary">← Ubah Jawaban</button>
-          <button onclick="resetQuiz()" class="btn-secondary">↺ Ulangi Simulasi</button>
+
         </div>
       </div>
     </div>
     
     <div class="scroll-hint" id="result-scroll-hint" style="bottom: 0;">
       <span>Scroll ke bawah ▾</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SLIDE 10 — ILUSTRASI FULL KARAKTER (buat di-download user)
+       Gambar full-nya kosong dulu (placeholder putus-putus).
+       Cara isi: lihat comment "[GANTI GAMBAR]" di characterData
+       pada bagian kode JavaScript di bawah, isi field `fullImage`.
+       ============================================================ -->
+  <div id="screen-illustration" class="hidden-section">
+    <div class="scrollable" style="height:100%;overflow-y:auto;">
+      <div class="illustration-top" id="illustration-top-bg">
+        <span class="eyebrow">Ilustrasi Karaktermu</span>
+        <h1 class="serif editable-el" id="illustration-title">TBA</h1>
+      </div>
+      <div class="illustration-body">
+        <div class="illustration-frame" id="illustration-frame">
+          <span id="illustration-placeholder-text">Gambar belum tersedia</span>
+        </div>
+        <a id="illustration-download-btn" class="btn-primary" href="#" download style="display:block;text-align:center;text-decoration:none;margin-top:18px;">⬇ Unduh Gambar</a>
+        <div class="result-actions" style="margin-top:12px;">
+          <button onclick="switchScreen('screen-illustration','screen-result')" class="btn-secondary">← Kembali ke Laporan</button>
+          <button onclick="resetQuiz('screen-illustration')" class="btn-secondary">↺ Ulangi Simulasi</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -604,29 +627,33 @@ const quizData = [
 
 /* ========================================================================= */
 /* [GANTI GAMBAR 3]: EDIT LOGO BINTANG / MASKOT CARING DI SINI               */
+/* [GANTI GAMBAR 4]: isi `fullImage` buat gambar ILUSTRASI FULL slide 10     */
+/*   (gambar besar yang bisa di-download user, satu per karakter, misal      */
+/*   fullImage:'captain-commitment-full.png'). Kosongin dulu ('') kalau      */
+/*   belum ada asetnya — nanti otomatis muncul kotak placeholder.            */
 /* ========================================================================= */
 const characterData = {
-  'C': { name:'Commitment', short:'Komitmen', hex:'#C81E2E', img:'pala-merah.png', emoji:'🎖️', tags:['Bertanggung Jawab','Disiplin'],
+  'C': { name:'Commitment', short:'Komitmen', hex:'#C81E2E', img:'pala-merah.png', fullImage:'', emoji:'🎖️', tags:['Bertanggung Jawab','Disiplin'],
     quote:"Setiap langkah besar dimulai dari komitmen kecil.",
     desc:'Kamu tidak lari dari tanggung jawab. Kedisiplinanmu memastikan pekerjaan tuntas dalam kondisi apapun — orang bisa mengandalkanmu saat semua orang lain ragu.',
     toast:'Dicatat — kelar, nggak ada yang digantung.' },
-  'A': { name:'Agility', short:'Kelincahan', hex:'#E8681A', img:'Kuning.png', emoji:'⚡', tags:['Cepat','Adaptif'],
+  'A': { name:'Agility', short:'Kelincahan', hex:'#E8681A', img:'Kuning.png', fullImage:'', emoji:'⚡', tags:['Cepat','Adaptif'],
     quote:"Kelincahan bukan hanya soal kecepatan, namun juga soal ketepatan.",
     desc:'Kamu adalah pelopor solusi. Insting kamu bergerak mencari jalan alternatif dengan kilat, dan tidak terpaku pada satu jalan buntu saja.',
     toast:'Dicatat — solusi alternatif langsung gas.' },
-  'R': { name:'Care', short:'Kepedulian', hex:'#D6247E', img:'Pink.png', emoji:'🤗', tags:['Empati','Kekeluargaan'],
+  'R': { name:'Care', short:'Kepedulian', hex:'#D6247E', img:'Pink.png', fullImage:'', emoji:'🤗', tags:['Empati','Kekeluargaan'],
     quote:"Kepedulian yang tulus membentuk ruang dimana semua orang dapat tumbuh.",
     desc:'Kamu adalah jantung dari tim. Insting kamu selalu mengarah pada merangkul dan melindungi kesejahteraan mental rekan-rekan di sekitarmu.',
     toast:'Dicatat — tim ngerasa diperhatiin.' },
-  'I': { name:'Integrity', short:'Integritas', hex:'#2360B4', img:'Biru.png', emoji:'⚖️', tags:['Kepercayaan','Adil'],
+  'I': { name:'Integrity', short:'Integritas', hex:'#2360B4', img:'Biru.png', fullImage:'', emoji:'⚖️', tags:['Kepercayaan','Adil'],
     quote:"Kejujuran adalah pondasi dari segalanya.",
     desc:'Kamu adalah penjaga standar. Etika dan objektivitas kamu junjung tinggi — orang-orang mengandalkanmu untuk selalu bertindak benar.',
     toast:'Dicatat — sesuai jalur, aman ditelusuri.' },
-  'N': { name:'Collaboration', short:'Kolaborasi', hex:'#7B3AA0', img:'Ungu.png', emoji:'🤝', tags:['Kerja Tim','Kompak'],
+  'N': { name:'Collaboration', short:'Kolaborasi', hex:'#7B3AA0', img:'Ungu.png', fullImage:'', emoji:'🤝', tags:['Kerja Tim','Kompak'],
     quote:"Bersama, kita bisa melakukan segalanya.",
     desc:'Kamu adalah sang konduktor. Krisis kamu hadapi bersama, lewat komunikasi terbuka dan gotong royong memecah kebuntuan tim.',
     toast:'Dicatat — kelar bareng-bareng.' },
-  'G': { name:'Gratitude', short:'Rasa Syukur', hex:'#188A4C', img:'Ijo.png', emoji:'🙏', tags:['Positif','Welas Asih'],
+  'G': { name:'Gratitude', short:'Rasa Syukur', hex:'#188A4C', img:'Ijo.png', fullImage:'', emoji:'🙏', tags:['Positif','Welas Asih'],
     quote:"Semakin kita bersyukur, semakin kita tumbuh.",
     desc:'Kamu adalah pembawa cahaya. Kamu melihat ruang untuk bersyukur dan belajar, mengubah situasi tegang menjadi optimis bagi semua orang.',
     toast:'Dicatat — suasana tetap adem.' }
@@ -645,6 +672,7 @@ function mascotHTML(cd){
 let currentQuestionIndex = 0;
 let answers = new Array(quizData.length).fill(undefined);
 let shuffledCache = [];
+let currentPrimaryTrait = null; // dipakai buat tau karakter dominan pas buka slide ilustrasi (slide 10)
 const FIXED_OPTION_ORDER = ['C','A','R','I','N','G']; 
 
 function buildFixedOptions(q){
@@ -755,14 +783,6 @@ function renderQuestion(){
   document.getElementById('progress-fill').style.width = `${pct}%`;
   document.getElementById('progress-avatar').style.left = `${pct}%`;
   
-  const iconEl = document.getElementById('scenario-icon');
-  if(q.illustration && q.illustration.trim() !== ''){
-    iconEl.innerHTML = `<img src="${q.illustration}" alt="${q.title}" style="width:100%;height:100%;object-fit:contain;border-radius:26px;" onerror="this.outerHTML='${ICONS[q.icon] || ICONS.alertTriangle}'">`;
-  } else {
-    iconEl.innerHTML = ICONS[q.icon] || ICONS.alertTriangle;
-  }
-  
-  iconEl.classList.remove('pop'); void iconEl.offsetWidth; iconEl.classList.add('pop');
   renderProgressDots();
 
   setEditableContent(qEyebrowEl, `q${currentQuestionIndex}-eyebrow`, q.eyebrow);
@@ -903,6 +923,7 @@ function checkResultScroll() {
 }
 
 function displayResult(primary, secondary, scoresOverride){
+  currentPrimaryTrait = primary;
   const screen = document.getElementById('screen-result');
   screen.classList.remove('hidden-section');
   const c = characterData[primary];
@@ -938,33 +959,6 @@ function displayResult(primary, secondary, scoresOverride){
   setEditableContent(debriefTextEl, `debrief-${primary}-${secondary}`,
     `Dari ${quizData.length} situasi krisis hari ini, insting dominanmu paling sering mengarah ke ${c.name} — ${c.desc} Kepemimpinan yang matang biasanya memadukan lebih dari satu nilai; sisi ${s.name} kamu adalah modal tambahan yang layak terus diasah.`);
 
-  const galleryGrid = document.getElementById('gallery-grid');
-  galleryGrid.innerHTML = '';
-  traitOrder.forEach(t=>{
-    const cd = characterData[t];
-    const isDominant = (t === primary);
-    const item = document.createElement('div');
-    item.className = 'gallery-item' + (isDominant ? ' dominant' : '');
-    if(isDominant){
-      item.style.setProperty('--dominant-color', cd.hex);
-      item.style.background = `linear-gradient(160deg, ${cd.hex} 0%, ${cd.hex}CC 100%)`;
-    }
-    const mascotWrap = document.createElement('div');
-    mascotWrap.innerHTML = mascotHTML(cd);
-    const nameEl = document.createElement('div'); nameEl.style.color = isDominant ? '#fff' : cd.hex;
-    bindEditableFresh(nameEl, `gallery-name-${t}`, cd.name); nameEl.classList.add('g-name');
-    const traitEl = document.createElement('div');
-    bindEditableFresh(traitEl, `gallery-trait-${t}`, cd.short); traitEl.classList.add('g-trait');
-    item.appendChild(mascotWrap); item.appendChild(nameEl); item.appendChild(traitEl);
-    if(isDominant){
-      const crown = document.createElement('span');
-      crown.className = 'crown-badge';
-      crown.innerText = '👑';
-      item.appendChild(crown);
-    }
-    galleryGrid.appendChild(item);
-  });
-
   const previewChips = document.getElementById('edit-preview-chips');
   previewChips.innerHTML = '';
   traitOrder.forEach(t=>{
@@ -987,8 +981,40 @@ function displayResult(primary, secondary, scoresOverride){
   setTimeout(checkResultScroll, 600);
 }
 
-function resetQuiz(){
-  switchScreen('screen-result', 'screen-intro');
+/* ================= SLIDE 10: ILUSTRASI FULL KARAKTER ================= */
+function goToIllustration(){
+  if(!currentPrimaryTrait) return;
+  switchScreen('screen-result', 'screen-illustration');
+  renderIllustrationScreen(currentPrimaryTrait);
+}
+
+function renderIllustrationScreen(trait){
+  const cd = characterData[trait];
+  document.getElementById('illustration-top-bg').style.background = `linear-gradient(160deg, ${cd.hex} 0%, ${cd.hex}CC 100%)`;
+  document.getElementById('illustration-title').innerText = cd.name;
+
+  const frame = document.getElementById('illustration-frame');
+  const downloadBtn = document.getElementById('illustration-download-btn');
+
+  if(cd.fullImage && cd.fullImage.trim() !== ''){
+    frame.innerHTML = `<img src="${cd.fullImage}" alt="Ilustrasi ${cd.name}">`;
+    downloadBtn.href = cd.fullImage;
+    downloadBtn.setAttribute('download', `${cd.name}.png`);
+    downloadBtn.style.opacity = '1';
+    downloadBtn.style.pointerEvents = 'auto';
+    downloadBtn.innerText = '⬇ Unduh Gambar';
+  } else {
+    // [GANTI GAMBAR] Belum ada file gambar untuk karakter ini — isi `fullImage` di characterData
+    frame.innerHTML = `<span>Ilustrasi ${cd.name} belum tersedia</span>`;
+    downloadBtn.removeAttribute('href');
+    downloadBtn.style.opacity = '.4';
+    downloadBtn.style.pointerEvents = 'none';
+    downloadBtn.innerText = 'Gambar belum tersedia';
+  }
+}
+
+function resetQuiz(fromScreenId){
+  switchScreen(fromScreenId || 'screen-result', 'screen-intro');
   clearAnswerState();
 }
 
