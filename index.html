@@ -294,24 +294,22 @@ body{
 
 .debrief-card{margin:0 24px 18px;background:#1C1B1F;border-radius:18px;padding:18px;color:#fff;}
 
-/* ================= SLIDE 9: KARTU POSTER (ilustrasi + deskripsi) ================= */
+/* ================= SLIDE 9: KARTU LAPORAN (deskripsi + tombol lihat & unduh) =================
+   Frame foto ilustrasi TIDAK lagi ditampilkan di kartu ini (sesuai permintaan) —
+   foto ilustrasi karakter cuma muncul di dalam popup pas kartu ini diketuk
+   (lihat #char-popup-illustration / openCharacterPopup di bagian JS). */
 .poster-card{
-  margin:0 24px 18px;border-radius:20px;overflow:hidden;background:#1C1B1F;
-  cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+  margin:0 24px 18px;border-radius:20px;overflow:hidden;background:#fff;
+  border:1px solid #EFE7D8;cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1);
 }
 .poster-card:active{transform:scale(.97);}
-.poster-card-top{padding:16px 16px 0;}
-.poster-card-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-yellow);display:block;margin-bottom:10px;}
-.poster-card-illustration{
-  width:100%;aspect-ratio:16/10;border-radius:14px 14px 0 0;
-  background:rgba(255,255,255,.06);border:1.5px dashed rgba(255,255,255,.25);border-bottom:none;
-  display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);
-  font-size:12px;font-weight:600;text-align:center;padding:12px;overflow:hidden;
+.poster-card-desc{padding:18px;}
+.poster-card-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-orange);display:block;margin-bottom:10px;}
+.poster-card-desc p{margin:0 0 12px;font-size:13px;line-height:1.6;color:#2A2822;}
+.poster-card-tap-hint{
+  display:inline-block;font-size:11.5px;font-weight:700;color:#fff;
+  background:var(--brand-orange);padding:8px 14px;border-radius:999px;
 }
-.poster-card-illustration img{width:100%;height:100%;object-fit:cover;}
-.poster-card-desc{background:#fff;padding:16px 18px 14px;}
-.poster-card-desc p{margin:0 0 8px;font-size:13px;line-height:1.6;color:#2A2822;}
-.poster-card-tap-hint{font-size:11px;font-weight:700;color:var(--brand-orange);}
 
 /* Popup pas kartu poster diklik — style mirip referensi (foto atas, deskripsi putih bawah) */
 .char-popup-overlay{
@@ -336,24 +334,52 @@ body{
 .char-popup-name{margin:0 0 6px;font-size:19px;font-weight:800;color:#2A2822;}
 .char-popup-text{margin:0;font-size:13px;line-height:1.6;color:#4B4740;}
 
-/* ================= SLIDE 10: ILUSTRASI FULL KARAKTER ================= */
-#screen-illustration{height:100%;width:100%;position:relative;background:#FBF7EF;}
+/* ================= SLIDE 10 (BARU): HALAMAN PENUTUP ("Terima Kasih") =================
+   Bagian atas (illustration-top) cuma nampilin frame foto karakter (placeholder
+   putus-putus kalau belum ada asetnya). Bagian bawah (illustration-body) berisi
+   konten penutup: judul, deskripsi, detail login, dan kontak bantuan. */
+#screen-illustration{height:100%;width:100%;position:relative;background:#EDE7DC;}
 .illustration-top{
-  padding:26px 24px 20px;text-align:center;
+  padding:26px 24px 34px;background:#EDE7DC;
   border-bottom-left-radius:32px;border-bottom-right-radius:32px;
 }
-.illustration-top .eyebrow{color:rgba(255,255,255,.85);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;display:block;}
-.illustration-top h1{color:#fff;font-size:26px;margin:0;font-weight:800;}
-.illustration-body{padding:22px 24px 28px;}
+.illustration-body{
+  background:#fff;border-top-left-radius:28px;border-top-right-radius:28px;
+  margin-top:-16px;position:relative;z-index:5;
+  padding:32px 24px 30px;
+}
 /* [GANTI GAMBAR] Kotak di bawah ini nampung ilustrasi full karakter (slide 10).
-   Diisi otomatis dari field `fullImage` di characterData (lihat kode JS di bawah). */
+   Diisi otomatis dari field `fullImage`/`img` di characterData (lihat kode JS). */
 .illustration-frame{
-  width:100%;aspect-ratio:3/4;border-radius:22px;overflow:hidden;
+  width:100%;aspect-ratio:16/10;border-radius:22px;overflow:hidden;
   background:#F3EDE0;border:2px dashed #D9CFBD;
   display:flex;align-items:center;justify-content:center;
-  color:#8A8373;font-size:13px;font-weight:600;text-align:center;padding:20px;
+  color:#8A8373;font-size:13px;font-weight:600;text-align:center;padding:20px;line-height:1.6;
 }
 .illustration-frame img{width:100%;height:100%;object-fit:cover;}
+
+#closing-title{font-size:26px;font-weight:700;color:#2A2822;text-align:center;margin:0 0 14px;}
+.closing-desc{font-size:14px;line-height:1.75;color:#4B4740;text-align:center;margin:0 0 22px;}
+
+.login-pill{
+  display:flex;align-items:center;gap:10px;
+  border:1.5px solid #E4DACB;border-radius:999px;
+  padding:12px 18px;margin:0 0 22px;
+}
+.login-pill .login-icon{font-size:16px;flex-shrink:0;}
+.login-pill span.editable-el{font-size:13px;font-weight:700;color:#2A2822;word-break:break-all;}
+
+.closing-contact-lead{font-size:13px;line-height:1.6;color:#6B6558;margin:0 0 14px;}
+
+.contact-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.contact-row .contact-icon{font-size:16px;flex-shrink:0;width:20px;text-align:center;}
+.contact-row p{margin:0;font-size:13.5px;color:#4B4740;}
+.contact-row p b{color:#2A2822;}
+
+.closing-restart-link{
+  display:inline-block;font-size:12.5px;font-weight:700;color:#8A8373;
+  text-decoration:underline;cursor:pointer;
+}
 .debrief-card .tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-yellow);display:block;margin-bottom:8px;}
 .debrief-card p{margin:0;font-size:13px;line-height:1.6;color:#E4E1DA;}
 
@@ -377,6 +403,7 @@ body{
 .gallery-item .g-name{font-size:10px;font-weight:800;color:#2A2822;line-height:1.2;}
 .gallery-item .g-trait{font-size:8.5px;color:#8A8373;font-weight:600;text-transform:uppercase;}
 
+#result-scrollable{padding-bottom:24px;}
 .result-actions{padding:0 24px 14px;display:flex;gap:10px;}
 .result-actions button{flex:1;}
 
@@ -412,6 +439,64 @@ body{
 @media (min-height:1000px) and (min-width:601px){
   .mobile-container{ height:min(920px, 88vh); }
 }
+
+/* ================= WIDE SCREEN (LAPTOP/PC): LANDSCAPE SPLIT LAYOUT =================
+   Di layar lebar (>=900px), kontainer berhenti jadi "phone frame" tegak dan berubah
+   jadi kartu landscape: panel kiri untuk konteks (judul/waktu/progress/karakter),
+   panel kanan untuk konten yang bisa discroll. Struktur HTML tetap sama persis —
+   ini murni pengaturan ulang layout lewat CSS, jadi semua fitur (edit mode, quiz,
+   popup, download ilustrasi) tetap jalan seperti biasa. */
+@media (min-width:900px){
+  body{padding:40px 24px;}
+  .mobile-container{
+    max-width:1080px;
+    width:100%;
+    height:min(700px, 88vh);
+    border-radius:28px;
+  }
+
+  /* ---- Intro (bar tetap di ATAS, bukan di kiri) ---- */
+  .intro-top{padding:32px 48px;}
+  .intro-bottom{padding:28px 64px 32px;justify-content:center;gap:20px;}
+  .intro-top h1{font-size:32px;}
+  .intro-top p.sub{font-size:14px;}
+  .mascot-strip{flex-wrap:wrap;max-width:420px;margin:0 auto;}
+  .dispatcher-line{max-width:640px;margin:0 auto;padding:18px 20px;}
+  .dispatcher-line p{font-size:14.5px;}
+  .intro-bottom > div:last-child{max-width:640px;width:100%;margin:0 auto;}
+
+  /* ---- Quiz (bar tetap di ATAS, bukan di kiri) ---- */
+  .quiz-top{padding:24px 48px 30px;}
+  .scenario-heading h2{font-size:25px;}
+  .quiz-scroll{padding:28px 64px 4px;max-width:960px;margin:0 auto;width:100%;}
+  .scenario-text{max-width:100%;}
+  #options-container{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  #options-container .option-card{margin-bottom:0;}
+  .quiz-nav{padding:16px 64px 22px;max-width:960px;margin:0 auto;width:100%;}
+
+  /* ---- Result ---- */
+  #result-scrollable{display:flex;flex-direction:row;overflow:visible;height:100%;padding-bottom:0;}
+  .result-top{width:38%;height:100%;flex-shrink:0;border-radius:0;justify-content:center;padding:32px;}
+  .result-mascot-wrap{position:relative;bottom:auto;margin-top:22px;}
+  .result-body{width:62%;height:100%;padding:36px 32px;overflow-y:auto;}
+  /* FIX: scroll-hint dulu selebar seluruh container (left:0;width:100%), jadi
+     gradien "paper"-nya nutup separuh panel kiri yang solid berwarna dan bikin
+     seolah maskot/panel kena crop/menggantung di bagian bawah. Di layout lebar
+     ini, konten yang scroll cuma .result-body (panel kanan) — jadi hint-nya
+     digeser & disempitkan supaya cuma nutup panel kanan itu saja. */
+  #result-scroll-hint{
+    left:38%;
+    width:62%;
+    bottom:0;
+    background:linear-gradient(to top, #FBF7EF 25%, transparent);
+  }
+
+  /* ---- Halaman Penutup ---- */
+  #screen-illustration .scrollable{display:flex;flex-direction:row;overflow:visible;height:100%;}
+  .illustration-top{width:38%;height:100%;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;border-radius:0;}
+  .illustration-body{width:62%;height:100%;overflow-y:auto;padding:36px;margin-top:0;border-radius:0;}
+  .illustration-frame{max-width:340px;margin:0 auto;aspect-ratio:1/1;}
+}
 </style>
 </head>
 <body>
@@ -429,7 +514,7 @@ body{
       <div class="grid-lines"></div>
       <span class="intro-badge">● Live Simulation</span>
       <h1 class="serif editable-el" id="intro-title">The Crisis Room</h1>
-      <p class="sub editable-el" id="intro-sub">Satu shift penuh. Delapan keputusan mendesak. Insting apa yang bakal muncul dari kamu?</p>
+      <p class="sub editable-el" id="intro-sub">Satu shift penuh. Tujuh keputusan mendesak. Insting apa yang bakal muncul dari kamu?</p>
       <div class="mascot-strip" id="mascot-strip"></div>
       <p class="mascot-caption editable-el" id="intro-mascot-caption">6 karakter CARING lagi nunggu ketemu kamu ✨</p>
     </div>
@@ -438,7 +523,7 @@ body{
         <img src="Pink.png" class="dispatcher-avatar" alt="Logo">
         <div style="flex:1;">
           <span class="tag">Dispatcher</span>
-          <p class="editable-el" id="intro-dispatcher-text">Kamu akan menjalani satu shift penuh sebagai pengambil keputusan. Delapan situasi akan datang silih berganti — tidak ada jawaban yang benar-benar salah. Jawab secepat insting pertamamu muncul.</p>
+          <p class="editable-el" id="intro-dispatcher-text">Kamu akan menjalani satu shift penuh sebagai pengambil keputusan. Tujuh situasi akan datang silih berganti — tidak ada jawaban yang benar-benar salah. Setiap pilihan menambah poin ke karakter yang paling sering muncul dari instingmu.</p>
         </div>
       </div>
       <div>
@@ -451,7 +536,7 @@ body{
     <div class="quiz-top">
       <div class="quiz-top-bar">
         <span class="time-chip" id="time-chip">08:00</span>
-        <span class="step-chip" id="step-chip">Krisis 1 / 8</span>
+        <span class="step-chip" id="step-chip">Krisis 1 / 7</span>
       </div>
       <div class="progress-track">
         <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -478,7 +563,7 @@ body{
   </div>
 
   <div id="screen-result" class="hidden-section">
-    <div class="scrollable" id="result-scrollable" style="height:100%;overflow-y:auto; padding-bottom: 24px;">
+    <div class="scrollable" id="result-scrollable" style="height:100%;overflow-y:auto;">
       <div class="result-top" id="result-header-bg">
         <span class="eyebrow">Karakter Dominan Kamu</span>
         <h1 class="serif editable-el" id="result-title">TBA</h1>
@@ -491,38 +576,26 @@ body{
           <div class="chips" id="edit-preview-chips"></div>
         </div>
 
-        <div class="result-tags" id="result-traits"></div>
-        <div class="result-quote"><p class="editable-el" id="result-quote">Kutipan</p></div>
-        <div class="secondary-chip" id="secondary-chip">
-          <div class="sc-dot" id="secondary-dot"></div>
-          <p class="editable-el" id="secondary-text">Trait pendukung</p>
-        </div>
-
         <div class="recap-section">
           <h3>Rekap Shift Kamu</h3>
-          <div id="recap-rows"></div>
+          <!-- <div id="recap-rows"></div> -->
         </div>
 
         <!-- ===================================================================
-             SLIDE 9 — KARTU LAPORAN + ILUSTRASI (diklik → buka popup & bisa didownload)
-             Gambar mascot kosong dulu (placeholder putus-putus), tinggal isi field
-             `fullImage` di characterData pada bagian JS (comment [GANTI GAMBAR 4]).
+             SLIDE 9 — KARTU LAPORAN AKHIR SHIFT (deskripsi + tombol lihat & unduh)
+             Frame foto ilustrasi sengaja TIDAK ditampilkan di sini. Fotonya baru
+             muncul saat kartu ini diketuk, lewat popup (#char-popup-overlay) yang
+             juga punya tombol unduh (downloadCharacterFrame()).
              =================================================================== -->
         <div class="poster-card" id="poster-card" onclick="openCharacterPopup()">
-          <div class="poster-card-top">
-            <span class="poster-card-tag">Laporan Akhir Shift</span>
-            <!-- [GANTI GAMBAR] kotak di bawah ini nampung foto maskot (misal Captain) -->
-            <div class="poster-card-illustration" id="poster-card-illustration">
-              <span>Ilustrasi karakter belum tersedia</span>
-            </div>
-          </div>
           <div class="poster-card-desc">
+            <span class="poster-card-tag">Laporan Akhir Shift</span>
             <p class="editable-el" id="debrief-text">Ringkasan performa shift kamu hari ini.</p>
-            <span class="poster-card-tap-hint">Ketuk buat lihat & unduh ⤢</span>
+            <span class="poster-card-tap-hint">Ketuk buat lihat &amp; unduh ⤢</span>
           </div>
         </div>
 
-        <button onclick="goToIllustration()" class="btn-primary" style="margin-bottom:12px;">Lihat Ilustrasi Karakter 🎨</button>
+        <button onclick="goToIllustration()" class="btn-primary" style="width:calc(100% - 48px);margin:0 24px 12px;">Lanjut ke Halaman Penutup</button>
 
         <div class="result-actions">
           <button onclick="backToLastQuestion()" class="btn-secondary">← Ubah Jawaban</button>
@@ -537,25 +610,43 @@ body{
   </div>
 
   <!-- ============================================================
-       SLIDE 10 — ILUSTRASI FULL KARAKTER (buat di-download user)
-       Gambar full-nya kosong dulu (placeholder putus-putus).
-       Cara isi: lihat comment "[GANTI GAMBAR]" di characterData
-       pada bagian kode JavaScript di bawah, isi field `fullImage`.
+       SLIDE 10 (BARU) — HALAMAN PENUTUP "Terima Kasih"
+       Bagian atas cuma nampilin frame foto karakter (placeholder putus-putus
+       kalau belum ada asetnya — isi lewat field `fullImage`/`img` di
+       characterData pada bagian JS). Bagian bawah berisi konten penutup
+       sesuai referensi gambar: judul, deskripsi platform, detail login,
+       info kontak bantuan, dan tombol kembali / ulangi.
        ============================================================ -->
   <div id="screen-illustration" class="hidden-section">
     <div class="scrollable" style="height:100%;overflow-y:auto;">
       <div class="illustration-top" id="illustration-top-bg">
-        <span class="eyebrow">Ilustrasi Karaktermu</span>
-        <h1 class="serif editable-el" id="illustration-title">TBA</h1>
+        <div class="illustration-frame" id="illustration-frame">
+          <span id="illustration-placeholder-text">Gambar karakter CARING belum ditaruh<br>(cari "SLIDE 10" di kode buat panduannya)</span>
+        </div>
       </div>
       <div class="illustration-body">
-        <div class="illustration-frame" id="illustration-frame">
-          <span id="illustration-placeholder-text">Gambar belum tersedia</span>
+        <h1 class="serif editable-el" id="closing-title">Terima Kasih</h1>
+        <p class="closing-desc editable-el" id="closing-desc">Summarecon Learning merupakan Platform pembelajaran untuk karyawan Summarecon yang menerapkan metode pembelajaran yang mengikuti perkembangan zaman dengan secara efektif &amp; efisien</p>
+
+        <div class="login-pill">
+          <span class="login-icon">🌐</span>
+          <span class="editable-el" id="closing-login">Detail Login : https://summareconlearning.com/</span>
         </div>
-        <a id="illustration-download-btn" class="btn-primary" href="#" download style="display:block;text-align:center;text-decoration:none;margin-top:18px;">⬇ Unduh Gambar</a>
-        <div class="result-actions" style="margin-top:12px;">
-          <button onclick="switchScreen('screen-illustration','screen-result')" class="btn-secondary">← Kembali ke Laporan</button>
-          <button onclick="resetQuiz('screen-illustration')" class="btn-secondary">↺ Ulangi Simulasi</button>
+
+        <p class="closing-contact-lead editable-el" id="closing-contact-lead">Apabila Bapak/Ibu mengalami kendala atau memerlukan bantuan lebih lanjut dapat menghubungi kami melalui :</p>
+
+        <div class="contact-row">
+          <span class="contact-icon">✉️</span>
+          <p><b>Email</b> :&nbsp;<span class="editable-el" id="closing-email">summareconlearning@summarecon.com</span></p>
+        </div>
+        <div class="contact-row">
+          <span class="contact-icon">📞</span>
+          <p><b>Whatsapp</b> :&nbsp;<span class="editable-el" id="closing-wa">+62 87890520851 (Bpk. Sydqy).</span></p>
+        </div>
+
+        <button onclick="switchScreen('screen-illustration','screen-result')" class="btn-primary" style="margin-top:10px;">Lihat Hasil Kembali</button>
+        <div style="text-align:center;margin-top:16px;">
+          <span class="closing-restart-link" onclick="resetQuiz('screen-illustration')">↺ Ulangi Simulasi</span>
         </div>
       </div>
     </div>
@@ -571,7 +662,7 @@ body{
       <button class="char-popup-close" onclick="closeCharacterPopup()">✕</button>
 
       <div id="char-popup-frame">
-        <!-- [GANTI GAMBAR] sama kayak poster-card, otomatis keisi dari `fullImage` -->
+        <!-- [GANTI GAMBAR] otomatis keisi dari `fullImage`/`img` di characterData -->
         <div class="char-popup-illustration" id="char-popup-illustration">
           <span>Ilustrasi karakter belum tersedia</span>
         </div>
@@ -717,25 +808,14 @@ const quizData = [
       { trait:'I', text:"Ikuti pedoman yang ada, biar keputusannya bisa dipertanggungjawabkan." },
       { trait:'N', text:"Kumpulkan tim inti, putuskan bareng-bareng." },
       { trait:'G', text:"Tetap positif, fokus kerjain yang terbaik dengan apa yang ada." }
-    ]},
-  { time:"16:50", step:8, icon:"userMinus", illustration:"", eyebrow:"Menutup Hari", title:"Akhir Shift",
-    text:"Shift hampir selesai. Sebelum pulang, kamu sempatkan waktu sebentar buat lihat lagi hari yang panjang ini. Apa yang kamu lakukan?",
-    options:[
-      { trait:'A', text:"Catat cepat apa yang masih bisa dikejar besok, biar nggak ketinggalan." },
-      { trait:'C', text:"Pastikan semua tanggung jawab hari ini beneran kelar, nggak ada yang nggantung." },
-      { trait:'R', text:"Kirim pesan terima kasih ke tim yang udah bantu-bantu seharian." },
-      { trait:'I', text:"Rapikan laporan hari ini biar besok gampang dilanjutin dengan jelas." },
-      { trait:'N', text:"Ajak tim ngobrol santai bareng, refleksi hari ini bareng-bareng." },
-      { trait:'G', text:"Bersyukur hari berat ini udah dilewati, kasih apresiasi ke diri sendiri." }
     ]}
 ];
 
 /* ========================================================================= */
 /* [GANTI GAMBAR 3]: EDIT LOGO BINTANG / MASKOT CARING DI SINI               */
-/* [GANTI GAMBAR 4]: isi `fullImage` buat gambar ILUSTRASI FULL slide 10     */
-/*   (gambar besar yang bisa di-download user, satu per karakter, misal      */
-/*   fullImage:'captain-commitment-full.png'). Kosongin dulu ('') kalau      */
-/*   belum ada asetnya — nanti otomatis muncul kotak placeholder.            */
+/* [GANTI GAMBAR 4]: isi `fullImage` buat gambar ILUSTRASI FULL (dipakai di  */
+/*   popup Slide 9 & frame Slide 10). Kosongin dulu ('') kalau belum ada     */
+/*   asetnya — nanti otomatis muncul kotak placeholder.                     */
 /* ========================================================================= */
 const characterData = {
   'C': { name:'Commitment', short:'Komitmen', hex:'#C81E2E', img:'pala-merah.png', fullImage:'', emoji:'🎖️', tags:['Bertanggung Jawab','Disiplin'],
@@ -777,7 +857,7 @@ function mascotHTML(cd){
 let currentQuestionIndex = 0;
 let answers = new Array(quizData.length).fill(undefined);
 let shuffledCache = [];
-let currentPrimaryTrait = null; // dipakai buat tau karakter dominan pas buka slide ilustrasi (slide 10)
+let currentPrimaryTrait = null; // dipakai buat tau karakter dominan pas buka popup / halaman penutup
 const FIXED_OPTION_ORDER = ['C','A','R','I','N','G']; 
 
 function buildFixedOptions(q){
@@ -842,12 +922,17 @@ const qEyebrowEl = document.getElementById('question-eyebrow');
 const qTitleEl = document.getElementById('question-title');
 const qTextEl = document.getElementById('question-text');
 const resultTitleEl = document.getElementById('result-title');
-const resultQuoteEl = document.getElementById('result-quote');
-const secondaryTextEl = document.getElementById('secondary-text');
 const debriefTextEl = document.getElementById('debrief-text');
+const closingTitleEl = document.getElementById('closing-title');
+const closingDescEl = document.getElementById('closing-desc');
+const closingLoginEl = document.getElementById('closing-login');
+const closingContactLeadEl = document.getElementById('closing-contact-lead');
+const closingEmailEl = document.getElementById('closing-email');
+const closingWaEl = document.getElementById('closing-wa');
 
 [introTitleEl, introSubEl, introDispatcherEl, introCtaEl, introMascotCaptionEl,
- qEyebrowEl, qTitleEl, qTextEl, resultTitleEl, resultQuoteEl, secondaryTextEl, debriefTextEl]
+ qEyebrowEl, qTitleEl, qTextEl, resultTitleEl, debriefTextEl,
+ closingTitleEl, closingDescEl, closingLoginEl, closingContactLeadEl, closingEmailEl, closingWaEl]
   .forEach(bindEditableOnce);
 
 setEditableContent(introTitleEl, 'intro-title', introTitleEl.innerText);
@@ -855,6 +940,12 @@ setEditableContent(introSubEl, 'intro-sub', introSubEl.innerText);
 setEditableContent(introDispatcherEl, 'intro-dispatcher-text', introDispatcherEl.innerText);
 setEditableContent(introCtaEl, 'intro-cta-label', introCtaEl.innerText);
 setEditableContent(introMascotCaptionEl, 'intro-mascot-caption', introMascotCaptionEl.innerText);
+setEditableContent(closingTitleEl, 'closing-title', closingTitleEl.innerText);
+setEditableContent(closingDescEl, 'closing-desc', closingDescEl.innerText);
+setEditableContent(closingLoginEl, 'closing-login', closingLoginEl.innerText);
+setEditableContent(closingContactLeadEl, 'closing-contact-lead', closingContactLeadEl.innerText);
+setEditableContent(closingEmailEl, 'closing-email', closingEmailEl.innerText);
+setEditableContent(closingWaEl, 'closing-wa', closingWaEl.innerText);
 
 function switchScreen(hideId, showId){
   const hideEl = document.getElementById(hideId);
@@ -919,15 +1010,7 @@ function renderQuestion(){
   });
 
   updateNavButtons();
-function updateNavButtons(){
-  const backBtn = document.getElementById('btn-back');
-  const nextBtn = document.getElementById('btn-next');
-  
-  // Hapus logika disable, biarkan tombol back selalu bisa diklik
-  backBtn.disabled = false; 
-  
-  nextBtn.innerText = (currentQuestionIndex === quizData.length - 1) ? 'Lihat Hasil →' : 'Lanjut →';
-}
+
   // Animasi Scroll Quiz yang diperbaiki biar langsung muncul saat pertama kali load konten
   const hint = document.getElementById('scroll-hint');
   const checkHint = ()=>{
@@ -947,7 +1030,7 @@ function updateNavButtons(){
 function updateNavButtons(){
   const backBtn = document.getElementById('btn-back');
   const nextBtn = document.getElementById('btn-next');
-  backBtn.disabled = (currentQuestionIndex === 0);
+  backBtn.disabled = false;
   nextBtn.innerText = (currentQuestionIndex === quizData.length - 1) ? 'Lihat Hasil →' : 'Lanjut →';
 }
 function showToast(text){
@@ -1035,35 +1118,12 @@ function displayResult(primary, secondary, scoresOverride){
   const s = characterData[secondary];
   const scores = scoresOverride || (()=>{ const sc={C:0,A:0,R:0,I:0,N:0,G:0}; answers.forEach(t=>{if(t) sc[t]++;}); return sc; })();
 
-  document.getElementById('result-header-bg').style.background = `linear-gradient(160deg, ${c.hex} 0%, ${c.hex}CC 100%)`;
+  document.getElementById('result-header-bg').style.background = c.hex;
   setEditableContent(resultTitleEl, `result-title-${primary}`, c.name);
   document.getElementById('result-mascot-wrap').innerHTML = mascotHTML(c);
-  setEditableContent(resultQuoteEl, `quote-${primary}`, `"${c.quote}"`);
-
-  const tagsWrap = document.getElementById('result-traits');
-  tagsWrap.innerHTML = '';
-  c.tags.forEach(t=>{ const span=document.createElement('span'); span.style.background=c.hex; span.innerText=t; tagsWrap.appendChild(span); });
-
-  document.getElementById('secondary-dot').style.background = s.hex;
-  setEditableContent(secondaryTextEl, `secondary-${primary}-${secondary}`,
-    `Sisi pendukungmu: ${s.name} (${s.short}) — insting ${s.short.toLowerCase()} juga cukup kuat muncul hari ini.`);
-
-  const recapWrap = document.getElementById('recap-rows');
-  recapWrap.innerHTML = '';
-  traitOrder.forEach(t=>{
-    const cd = characterData[t];
-    const pct = (scores[t]/quizData.length)*100;
-    const row = document.createElement('div');
-    row.className = 'recap-row';
-    row.innerHTML = `<div class="recap-label" style="color:${cd.hex}">${t}</div>
-      <div class="recap-track"><div class="recap-fill" style="width:${pct}%;background:${cd.hex}"></div></div>
-      <div class="recap-count">${scores[t]}</div>`;
-    recapWrap.appendChild(row);
-  });
 
   setEditableContent(debriefTextEl, `debrief-${primary}-${secondary}`,
     `Dari ${quizData.length} situasi krisis hari ini, insting dominanmu paling sering mengarah ke ${c.name} — ${c.desc} Kepemimpinan yang matang biasanya memadukan lebih dari satu nilai; sisi ${s.name} kamu adalah modal tambahan yang layak terus diasah.`);
-  fillCharacterIllustration('poster-card-illustration', c);
 
   const previewChips = document.getElementById('edit-preview-chips');
   previewChips.innerHTML = '';
@@ -1087,10 +1147,10 @@ function displayResult(primary, secondary, scoresOverride){
   setTimeout(checkResultScroll, 600);
 }
 
-/* ================= SLIDE 10: ILUSTRASI FULL KARAKTER ================= */
-/* ================= SLIDE 9: POPUP ILUSTRASI KARAKTER (bisa didownload) ================= */
+/* ================= POPUP ILUSTRASI KARAKTER (Slide 9 — bisa didownload) ================= */
 function fillCharacterIllustration(elId, cd){
   const el = document.getElementById(elId);
+  if(!el) return;
   const src = cd.fullImage || cd.img;
   if(src){
     el.innerHTML = `<img src="${src}" alt="${cd.name}" onerror="this.parentElement.innerHTML='<span>Ilustrasi ${cd.name} belum tersedia</span>'">`;
@@ -1133,6 +1193,7 @@ function downloadCharacterFrame(){
   });
 }
 
+/* ================= SLIDE 10 (BARU): HALAMAN PENUTUP "Terima Kasih" ================= */
 function goToIllustration(){
   if(!currentPrimaryTrait) return;
   switchScreen('screen-result', 'screen-illustration');
@@ -1141,27 +1202,10 @@ function goToIllustration(){
 
 function renderIllustrationScreen(trait){
   const cd = characterData[trait];
-  document.getElementById('illustration-top-bg').style.background = `linear-gradient(160deg, ${cd.hex} 0%, ${cd.hex}CC 100%)`;
-  document.getElementById('illustration-title').innerText = cd.name;
-
-  const frame = document.getElementById('illustration-frame');
-  const downloadBtn = document.getElementById('illustration-download-btn');
-
-  if(cd.fullImage && cd.fullImage.trim() !== ''){
-    frame.innerHTML = `<img src="${cd.fullImage}" alt="Ilustrasi ${cd.name}">`;
-    downloadBtn.href = cd.fullImage;
-    downloadBtn.setAttribute('download', `${cd.name}.png`);
-    downloadBtn.style.opacity = '1';
-    downloadBtn.style.pointerEvents = 'auto';
-    downloadBtn.innerText = '⬇ Unduh Gambar';
-  } else {
-    // [GANTI GAMBAR] Belum ada file gambar untuk karakter ini — isi `fullImage` di characterData
-    frame.innerHTML = `<span>Ilustrasi ${cd.name} belum tersedia</span>`;
-    downloadBtn.removeAttribute('href');
-    downloadBtn.style.opacity = '.4';
-    downloadBtn.style.pointerEvents = 'none';
-    downloadBtn.innerText = 'Gambar belum tersedia';
-  }
+  // Frame foto karakter di halaman penutup pakai aset yang sama dengan popup
+  // (fullImage kalau ada, fallback ke img). Kosongin kedua field itu di
+  // characterData buat nampilin placeholder seperti pada referensi gambar.
+  fillCharacterIllustration('illustration-frame', cd);
 }
 
 function resetQuiz(fromScreenId){
