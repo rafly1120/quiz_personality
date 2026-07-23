@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Crisis Room — CARING Shift Simulation</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<!-- html2canvas: dipakai buat gabungin gambar + deskripsi karakter jadi 1 file PNG yang bisa di-download -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{
   --brand-orange:#E8681A;
@@ -32,13 +34,10 @@ body{
 .serif{font-family:'Fraunces',serif;}
 
 .mobile-container{
-  width:100%;max-width:414px;height:100vh;max-height:896px;
+  width:100%;max-width:480px;
+  height:100vh;height:100dvh;
   background:var(--paper);position:relative;overflow:hidden;
   display:flex;flex-direction:column;
-  box-shadow:0 25px 60px -12px rgba(0,0,0,.45);
-}
-@media (min-width:640px){
-  .mobile-container{height:92vh;border-radius:36px;border:8px solid #1f2937;}
 }
 
 .hidden-section{display:none !important;}
@@ -295,6 +294,48 @@ body{
 
 .debrief-card{margin:0 24px 18px;background:#1C1B1F;border-radius:18px;padding:18px;color:#fff;}
 
+/* ================= SLIDE 9: KARTU POSTER (ilustrasi + deskripsi) ================= */
+.poster-card{
+  margin:0 24px 18px;border-radius:20px;overflow:hidden;background:#1C1B1F;
+  cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+.poster-card:active{transform:scale(.97);}
+.poster-card-top{padding:16px 16px 0;}
+.poster-card-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-yellow);display:block;margin-bottom:10px;}
+.poster-card-illustration{
+  width:100%;aspect-ratio:16/10;border-radius:14px 14px 0 0;
+  background:rgba(255,255,255,.06);border:1.5px dashed rgba(255,255,255,.25);border-bottom:none;
+  display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);
+  font-size:12px;font-weight:600;text-align:center;padding:12px;overflow:hidden;
+}
+.poster-card-illustration img{width:100%;height:100%;object-fit:cover;}
+.poster-card-desc{background:#fff;padding:16px 18px 14px;}
+.poster-card-desc p{margin:0 0 8px;font-size:13px;line-height:1.6;color:#2A2822;}
+.poster-card-tap-hint{font-size:11px;font-weight:700;color:var(--brand-orange);}
+
+/* Popup pas kartu poster diklik — style mirip referensi (foto atas, deskripsi putih bawah) */
+.char-popup-overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:500;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  transition:opacity .25s ease;
+}
+.char-popup-card{background:#fff;border-radius:22px;width:100%;max-width:320px;position:relative;padding:14px;box-shadow:0 24px 48px -12px rgba(0,0,0,.4);}
+.char-popup-close{
+  position:absolute;top:-14px;right:-6px;z-index:10;width:32px;height:32px;border-radius:50%;
+  border:2.5px solid #fff;background:#1C1B1F;color:#fff;font-size:13px;cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+#char-popup-frame{border-radius:16px;overflow:hidden;background:#1C1B1F;}
+.char-popup-illustration{
+  width:100%;aspect-ratio:1/1;background:rgba(255,255,255,.06);
+  border:1.5px dashed rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.4);font-size:13px;font-weight:600;text-align:center;padding:16px;overflow:hidden;
+}
+.char-popup-illustration img{width:100%;height:100%;object-fit:cover;}
+.char-popup-desc{background:#fff;padding:16px;}
+.char-popup-name{margin:0 0 6px;font-size:19px;font-weight:800;color:#2A2822;}
+.char-popup-text{margin:0;font-size:13px;line-height:1.6;color:#4B4740;}
+
 /* ================= SLIDE 10: ILUSTRASI FULL KARAKTER ================= */
 #screen-illustration{height:100%;width:100%;position:relative;background:#FBF7EF;}
 .illustration-top{
@@ -344,6 +385,32 @@ body{
 .edit-preview-row .chips{display:flex;gap:6px;flex-wrap:wrap;}
 .edit-preview-row button{
   width:30px;height:30px;border-radius:9px;border:none;font-weight:800;font-size:12px;color:#fff;cursor:pointer;
+}
+
+/* ================= RESPONSIVE: TABLET & DESKTOP ================= */
+/* Di layar sempit (HP), .mobile-container tetap full-bleed seperti semula.
+   Mulai dari 601px ke atas (tablet/laptop), kontainer berubah jadi kartu
+   "phone-frame" yang mengambang center dan menyesuaikan tinggi layar,
+   biar rasio & keterbacaan tetap nyaman meski dibuka di layar lebar. */
+@media (min-width:601px){
+  body{padding:32px 16px;}
+  .mobile-container{
+    max-width:430px;
+    width:100%;
+    height:min(880px, 94vh);
+    border-radius:32px;
+    box-shadow:0 40px 90px -24px rgba(15,23,42,.5), 0 0 0 1px rgba(15,23,42,.05);
+  }
+}
+@media (min-width:1024px){
+  .mobile-container{
+    max-width:460px;
+    height:min(900px, 92vh);
+    border-radius:36px;
+  }
+}
+@media (min-height:1000px) and (min-width:601px){
+  .mobile-container{ height:min(920px, 88vh); }
 }
 </style>
 </head>
@@ -436,16 +503,30 @@ body{
           <div id="recap-rows"></div>
         </div>
 
-        <div class="debrief-card">
-          <span class="tag">Laporan Akhir Shift</span>
-          <p class="editable-el" id="debrief-text">Ringkasan performa shift kamu hari ini.</p>
+        <!-- ===================================================================
+             SLIDE 9 — KARTU LAPORAN + ILUSTRASI (diklik → buka popup & bisa didownload)
+             Gambar mascot kosong dulu (placeholder putus-putus), tinggal isi field
+             `fullImage` di characterData pada bagian JS (comment [GANTI GAMBAR 4]).
+             =================================================================== -->
+        <div class="poster-card" id="poster-card" onclick="openCharacterPopup()">
+          <div class="poster-card-top">
+            <span class="poster-card-tag">Laporan Akhir Shift</span>
+            <!-- [GANTI GAMBAR] kotak di bawah ini nampung foto maskot (misal Captain) -->
+            <div class="poster-card-illustration" id="poster-card-illustration">
+              <span>Ilustrasi karakter belum tersedia</span>
+            </div>
+          </div>
+          <div class="poster-card-desc">
+            <p class="editable-el" id="debrief-text">Ringkasan performa shift kamu hari ini.</p>
+            <span class="poster-card-tap-hint">Ketuk buat lihat & unduh ⤢</span>
+          </div>
         </div>
 
         <button onclick="goToIllustration()" class="btn-primary" style="margin-bottom:12px;">Lihat Ilustrasi Karakter 🎨</button>
 
         <div class="result-actions">
           <button onclick="backToLastQuestion()" class="btn-secondary">← Ubah Jawaban</button>
-
+          <button onclick="resetQuiz()" class="btn-secondary">↺ Ulangi Simulasi</button>
         </div>
       </div>
     </div>
@@ -477,6 +558,30 @@ body{
           <button onclick="resetQuiz('screen-illustration')" class="btn-secondary">↺ Ulangi Simulasi</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       POPUP ILUSTRASI KARAKTER (buka pas kartu poster di Slide 9 diklik)
+       #char-popup-frame adalah bagian yang di-"foto" (capture) jadi 1 file
+       PNG buat di-download — gambar + deskripsi otomatis jadi satu frame.
+       =================================================================== -->
+  <div class="char-popup-overlay hidden-section" id="char-popup-overlay" onclick="closeCharacterPopup(event)">
+    <div class="char-popup-card" onclick="event.stopPropagation()">
+      <button class="char-popup-close" onclick="closeCharacterPopup()">✕</button>
+
+      <div id="char-popup-frame">
+        <!-- [GANTI GAMBAR] sama kayak poster-card, otomatis keisi dari `fullImage` -->
+        <div class="char-popup-illustration" id="char-popup-illustration">
+          <span>Ilustrasi karakter belum tersedia</span>
+        </div>
+        <div class="char-popup-desc">
+          <p class="char-popup-name" id="char-popup-name">Commitment</p>
+          <p class="char-popup-text" id="char-popup-text">Deskripsi karakter...</p>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="char-popup-download" onclick="downloadCharacterFrame()" style="margin-top:14px;">⬇ Unduh Gambar</button>
     </div>
   </div>
 
@@ -958,6 +1063,7 @@ function displayResult(primary, secondary, scoresOverride){
 
   setEditableContent(debriefTextEl, `debrief-${primary}-${secondary}`,
     `Dari ${quizData.length} situasi krisis hari ini, insting dominanmu paling sering mengarah ke ${c.name} — ${c.desc} Kepemimpinan yang matang biasanya memadukan lebih dari satu nilai; sisi ${s.name} kamu adalah modal tambahan yang layak terus diasah.`);
+  fillCharacterIllustration('poster-card-illustration', c);
 
   const previewChips = document.getElementById('edit-preview-chips');
   previewChips.innerHTML = '';
@@ -982,6 +1088,51 @@ function displayResult(primary, secondary, scoresOverride){
 }
 
 /* ================= SLIDE 10: ILUSTRASI FULL KARAKTER ================= */
+/* ================= SLIDE 9: POPUP ILUSTRASI KARAKTER (bisa didownload) ================= */
+function fillCharacterIllustration(elId, cd){
+  const el = document.getElementById(elId);
+  const src = cd.fullImage || cd.img;
+  if(src){
+    el.innerHTML = `<img src="${src}" alt="${cd.name}" onerror="this.parentElement.innerHTML='<span>Ilustrasi ${cd.name} belum tersedia</span>'">`;
+  } else {
+    el.innerHTML = `<span>Ilustrasi ${cd.name} belum tersedia</span>`;
+  }
+}
+
+function openCharacterPopup(){
+  if(!currentPrimaryTrait) return;
+  const cd = characterData[currentPrimaryTrait];
+  document.getElementById('char-popup-name').innerText = cd.name;
+  document.getElementById('char-popup-text').innerText = document.getElementById('debrief-text').innerText;
+  fillCharacterIllustration('char-popup-illustration', cd);
+  document.getElementById('char-popup-overlay').classList.remove('hidden-section');
+}
+
+function closeCharacterPopup(e){
+  if(e && e.target !== e.currentTarget) return; // klik di dalam kartu popup gak nutup
+  document.getElementById('char-popup-overlay').classList.add('hidden-section');
+}
+
+function downloadCharacterFrame(){
+  const frame = document.getElementById('char-popup-frame');
+  const btn = document.getElementById('char-popup-download');
+  const originalText = btn.innerText;
+  btn.innerText = 'Menyiapkan gambar...';
+  btn.disabled = true;
+  html2canvas(frame, { backgroundColor:'#1C1B1F', scale:2, useCORS:true }).then(canvas=>{
+    const link = document.createElement('a');
+    const name = characterData[currentPrimaryTrait] ? characterData[currentPrimaryTrait].name : 'karakter';
+    link.download = `CARING-${name}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    btn.innerText = originalText;
+    btn.disabled = false;
+  }).catch(()=>{
+    btn.innerText = originalText;
+    btn.disabled = false;
+  });
+}
+
 function goToIllustration(){
   if(!currentPrimaryTrait) return;
   switchScreen('screen-result', 'screen-illustration');
